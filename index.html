@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#10243e">
+  <meta name="description" content="Studio Fisika Usaha dan Energi: slide PowerPoint, kuis di dalam slide, simulasi virtual, dan mode PID untuk pembelajaran SMA.">
+  <title>Usaha dan Energi | Studio Fisika PID</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app-shell" id="appShell">
+  <header class="topbar" id="topbar">
+    <a class="brand" href="#slide=1" aria-label="Studio Fisika, beranda">
+      <span class="brand-symbol">F<span class="brand-spark">✦</span></span>
+      <span><b>STUDIO FISIKA</b><small>PEMBELAJARAN INTERAKTIF · SMA/MA</small></span>
+    </a>
+    <div class="head-separator"></div>
+    <div class="chapter-title"><b>Usaha dan Energi</b><span>Bab 2 · 8 slide</span></div>
+    <nav class="main-tabs" aria-label="Modul"><button type="button" class="tab active" id="tabSlides">▣ <span>Presentasi</span></button><button type="button" class="tab" id="tabLabs">⚗ <span>Laboratorium</span></button><button type="button" class="tab" id="tabResults">▤ <span>Rekap Kuis</span></button></nav>
+    <button type="button" class="header-class" id="classButton">▣ <span>Presentasi Kelas</span></button>
+    <button type="button" class="header-help" id="helpButton" aria-label="Bantuan">?</button>
+  </header>
+  <div class="workspace" id="workspace">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-heading"><div><span class="eyebrow">DAFTAR MATERI</span><h2>Jelajahi slide</h2></div><button class="mobile-close" id="closeSidebar" aria-label="Tutup daftar slide">✕</button></div>
+      <div class="searchbox"><span>⌕</span><input id="slideSearch" type="search" placeholder="Cari materi..." aria-label="Cari slide"></div>
+      <div class="slide-summary"><span class="summary-symbol">▦</span><div><b>8 slide asli</b><small>Ditampilkan sesuai PPTX sumber</small></div></div>
+      <div class="slide-list" id="slideList"></div>
+      <div class="side-footer"><span class="side-tip">☝ Geser slide dengan jari pada PID.</span><span>Materi Fisika SMA/MA</span></div>
+    </aside>
+    <main class="main-content" id="mainContent">
+      <section id="presentationView" class="presentation-view">
+        <div class="content-heading"><div><span class="eyebrow">RUANG PRESENTASI</span><h1 id="slideHeading">Usaha dan Energi</h1><p id="slideSubtitle">Slide materi terintegrasi dengan latihan formatif</p></div><button type="button" class="outline-btn mobile-list" id="mobileSlideButton">☰ Daftar slide</button></div>
+        <div class="slide-stage" id="slideStage">
+          <div class="stage-corner"><span id="stageLessonBadge">BAB 2 · FISIKA</span></div>
+          <div class="slide-frame" id="slideFrame">
+            <img id="slideImage" src="slides/slide-01.webp" draggable="false" alt="Slide 1: Usaha dan Energi">
+            <canvas id="annotationCanvas" aria-label="Lapisan coretan guru"></canvas>
+          </div>
+          <div id="laserDot" class="laser-dot" hidden></div>
+          <button type="button" class="stage-quiz-cta" id="stageQuizButton" hidden>✦ <span id="stageQuizText">Kuis slide</span> <span class="cta-arrow">›</span></button>
+          <button type="button" class="stage-nav stage-prev" id="stagePrev" aria-label="Slide sebelumnya">‹</button>
+          <button type="button" class="stage-nav stage-next" id="stageNext" aria-label="Slide selanjutnya">›</button>
+          <span class="stage-progress" id="stageProgress">01 / 08</span>
+        </div>
+        <div class="presentation-toolbar" id="presentationToolbar">
+          <div class="toolbar-group"><button type="button" class="tool-control" id="prevButton" title="Slide sebelumnya">‹</button><span id="toolbarSlideCount">01 / 08</span><button type="button" class="tool-control" id="nextButton" title="Slide berikutnya">›</button></div>
+          <span class="tool-divider"></span>
+          <div class="toolbar-group"><button type="button" class="tool-pill" id="penButton" title="Anotasi pena">✎ Pena</button><button type="button" class="tool-pill" id="laserButton" title="Penunjuk laser">◎ Laser</button><button type="button" class="tool-pill" id="undoButton" title="Urungkan coretan">↶</button><button type="button" class="tool-pill" id="clearButton" title="Hapus coretan">⌫</button></div>
+          <span class="tool-divider"></span>
+          <div class="toolbar-group"><button type="button" class="tool-pill" id="zoomOut" title="Perkecil">−</button><span id="zoomLabel">100%</span><button type="button" class="tool-pill" id="zoomIn" title="Perbesar">＋</button><button type="button" class="tool-pill" id="zoomReset" title="Atur ulang pembesaran">↺</button></div>
+          <div class="toolbar-spacer"></div>
+          <button type="button" class="toolbar-quiz" id="quizButton">✦ Kuis di Slide <span id="quizCount">0</span></button>
+          <button type="button" class="tool-control fullscreen-button" id="fullButton" title="Layar penuh">⛶</button>
+        </div>
+        <div class="below-panel"><div class="below-left"><span class="info-dot">i</span><div><b id="conceptTitle">Materi pembuka</b><p id="conceptText">Pahami hubungan usaha dan energi melalui simulasi dan kuis.</p></div></div><button type="button" class="lab-inline-link" id="relatedLabButton">Buka simulasi terkait <span>↗</span></button></div>
+      </section>
+      <section id="labView" class="lab-view" hidden>
+        <div class="module-heading"><span class="eyebrow">LABORATORIUM VIRTUAL</span><h1>Eksplorasi konsep, ubah parameternya.</h1><p>Empat percobaan interaktif. Perhitungan berlangsung pada perangkat pengguna, tanpa server khusus.</p></div>
+        <div id="labTabs" class="lab-tabs" role="tablist" aria-label="Pilih simulasi"></div>
+        <div id="labBody"></div>
+      </section>
+      <section id="resultsView" class="results-view" hidden>
+        <div class="module-heading"><span class="eyebrow">EVALUASI FORMATIF</span><h1>Rekap kuis Usaha dan Energi</h1><p>Nilai tersimpan pada browser perangkat ini. Saat digunakan bersama di PID, jawaban merepresentasikan satu sesi kelas, bukan akun setiap murid.</p></div>
+        <div id="resultsBody"></div>
+      </section>
+    </main>
+    <aside class="insight-panel" id="insightPanel">
+      <div class="panel-header"><span class="eyebrow">PANDUAN GURU</span><h2>Belajar sambil mencoba</h2><p>Kuis tertanam dalam tampilan slide dan dapat dibuka saat pembahasan.</p></div>
+      <div class="panel-stats"><div class="stat-tile"><strong id="sideAnswered">0<span>/12</span></strong><small>Kuis dijawab</small></div><div class="stat-tile"><strong id="sideAccuracy">0<span>%</span></strong><small>Ketepatan</small></div></div>
+      <div class="panel-section"><span class="eyebrow">AKTIVITAS PADA SLIDE</span><div id="slideActivities"></div></div>
+      <div class="panel-section"><span class="eyebrow">PINTASAN SENTUH</span><div class="quick-tip">⇆ <span>Geser satu jari untuk berpindah slide.</span></div><div class="quick-tip">✎ <span>Aktifkan pena untuk mencoret materi.</span></div><div class="quick-tip">✦ <span>Buka kuis tanpa keluar dari slide.</span></div></div>
+      <div class="panel-bottom"><b>Mode Presentasi Kelas</b><p>Tayangan luas, kontrol besar, dan bilah alat yang dapat disembunyikan.</p><button type="button" id="sideClassButton">Mulai Presentasi Kelas ↗</button></div>
+    </aside>
+  </div>
+</div>
+<div class="classroom-bar" id="classroomBar" hidden>
+  <button type="button" id="classPrev" class="class-icon" aria-label="Slide sebelumnya">‹</button><span id="classCount">01 / 08</span><button type="button" id="classNext" class="class-icon" aria-label="Slide berikutnya">›</button>
+  <span class="class-separator"></span><button type="button" id="classQuiz" class="class-prominent">✦ Kuis</button><button type="button" id="classLab" class="class-prominent">⚗ Simulasi</button><button type="button" id="classPen" class="class-icon" aria-label="Pena">✎</button><button type="button" id="classLaser" class="class-icon" aria-label="Laser">◎</button><button type="button" id="classUndo" class="class-icon" aria-label="Urungkan">↶</button><button type="button" id="classErase" class="class-icon" aria-label="Hapus semua coretan">⌫</button><span class="class-separator"></span><button type="button" id="classExit" class="class-finish">Selesai</button>
+</div>
+<button type="button" id="classShowTools" class="class-show-tools" hidden>☰ Alat</button>
+<div id="quizOverlay" class="quiz-overlay" hidden role="dialog" aria-modal="true" aria-label="Kuis di dalam slide">
+  <div class="quiz-panel"><div class="quiz-top"><div><span class="eyebrow">KUIS DI DALAM SLIDE</span><h2 id="quizTopic">Uji pemahaman</h2></div><button type="button" id="closeQuiz" class="close-quiz" aria-label="Tutup kuis">✕</button></div>
+  <div class="quiz-body"><div class="quiz-step"><span id="quizStep">SOAL 1 / 2</span><span id="quizKind">PILIHAN GANDA</span></div><div class="quiz-line"><span id="quizLineFill"></span></div><h3 id="quizQuestion"></h3><p id="quizInstruction"></p><div id="quizOptions" class="quiz-options"></div><div id="quizFeedback" class="quiz-feedback" hidden></div></div>
+  <div class="quiz-footer"><button type="button" id="quizPrev" class="outline-btn">‹ Soal sebelumnya</button><button type="button" id="quizSubmit" class="primary-btn">Periksa Jawaban</button><button type="button" id="quizNext" class="primary-btn" hidden>Soal Berikutnya ›</button></div></div>
+</div>
+<div id="helpOverlay" class="help-overlay" hidden role="dialog" aria-modal="true" aria-label="Panduan penggunaan"><div class="help-panel"><button type="button" class="help-x" id="closeHelp" aria-label="Tutup bantuan">✕</button><span class="eyebrow">PANDUAN PENGGUNAAN</span><h2>Pemutar Fisika untuk PID</h2><p>Geser slide dengan satu jari; ketuk <b>Kuis</b> untuk menjawab soal pada slide yang sedang ditampilkan. Mode pena mengunci perpindahan slide saat Anda menulis.</p><div class="help-grid"><div><b>← → atau geser</b><small>Pindah slide</small></div><div><b>K</b><small>Buka kuis slide</small></div><div><b>C</b><small>Mode Presentasi Kelas</small></div><div><b>L</b><small>Simulasi terkait</small></div><div><b>Esc</b><small>Tutup panel</small></div><div><b>F</b><small>Layar penuh</small></div></div><p class="help-note">Pada mode kelas, tombol <b>Alat</b> memunculkan kembali bilah yang tersembunyi. Dua jari dapat digunakan untuk memperbesar slide; geser satu jari saat diperbesar untuk mengubah posisi tampilan.</p><button type="button" class="primary-btn help-done" id="helpDone">Mulai belajar</button></div></div>
+<script src="app.js" defer></script>
+</body>
+</html>
