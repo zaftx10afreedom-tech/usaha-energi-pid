@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b172b">
+  <meta name="description" content="Mode Presentasi Kelas untuk PID: Usaha dan Energi, delapan slide materi dan kuis interaktif di dalam slide.">
+  <title>Usaha dan Energi • Presentasi Kelas PID</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell" id="app">
+  <header class="topline" aria-label="Identitas materi">
+    <div class="brand-mark">F<span>✦</span></div>
+    <div class="topline-text"><strong>USAHA DAN ENERGI</strong><small>FISIKA SMA/MA · MODE PRESENTASI KELAS</small></div>
+    <div class="topline-slide" id="headerCount">01 / 08</div>
+  </header>
+
+  <main class="presenter" id="presenter">
+    <section class="slide-stage" id="slideStage" aria-label="Area slide interaktif">
+      <div class="slide-viewport" id="slideViewport">
+        <div class="slide-frame" id="slideFrame">
+          <img id="slideImage" src="slides/slide-01.webp" alt="Slide 1: Usaha dan Energi" draggable="false">
+          <canvas id="inkCanvas" aria-label="Lapisan anotasi pada slide"></canvas>
+        </div>
+      </div>
+      <button type="button" class="edge-arrow previous" id="edgePrev" aria-label="Slide sebelumnya">‹</button>
+      <button type="button" class="edge-arrow following" id="edgeNext" aria-label="Slide berikutnya">›</button>
+      <button type="button" class="quiz-float" id="quizFloat" hidden>✦ <span>Kuis slide ini</span><span id="quizFloatCount"></span></button>
+      <div class="slide-counter" id="slideCounter">01 / 08</div>
+      <div class="gesture-tip" id="gestureTip">Geser slide dengan satu jari untuk berpindah</div>
+    </section>
+  </main>
+
+  <nav class="control-dock" id="controlDock" aria-label="Alat presentasi">
+    <div class="dock-section nav-section">
+      <button type="button" class="dock-icon" id="prevButton" aria-label="Slide sebelumnya" title="Slide sebelumnya">‹</button>
+      <span class="dock-counter" id="dockCounter">01/08</span>
+      <button type="button" class="dock-icon" id="nextButton" aria-label="Slide berikutnya" title="Slide berikutnya">›</button>
+    </div>
+    <div class="dock-divider"></div>
+    <button type="button" class="dock-btn" id="slideListButton" title="Lihat seluruh slide">▦ <span>Slide</span></button>
+    <button type="button" class="dock-btn quiz-action" id="quizButton" title="Kuis pada slide ini">✦ <span>Kuis</span></button>
+    <button type="button" class="dock-btn" id="resultsButton" title="Rekap hasil kuis">▤ <span>Hasil</span></button>
+    <div class="dock-divider"></div>
+    <button type="button" class="dock-btn" id="penButton" title="Pena untuk menulis di atas slide">✎ <span>Pena</span></button>
+    <button type="button" class="dock-btn" id="laserButton" title="Penunjuk laser">◎ <span>Laser</span></button>
+    <button type="button" class="dock-icon" id="undoButton" aria-label="Urungkan coretan" title="Urungkan coretan">↶</button>
+    <button type="button" class="dock-icon" id="clearButton" aria-label="Hapus coretan pada slide" title="Hapus coretan">⌫</button>
+    <div class="dock-divider"></div>
+    <button type="button" class="dock-icon" id="zoomOut" aria-label="Perkecil" title="Perkecil">−</button>
+    <button type="button" class="dock-icon" id="zoomReset" aria-label="Atur ulang pembesaran" title="Atur ulang pembesaran">⊙</button>
+    <button type="button" class="dock-icon" id="zoomIn" aria-label="Perbesar" title="Perbesar">＋</button>
+    <button type="button" class="dock-icon" id="fullButton" aria-label="Layar penuh" title="Layar penuh">⛶</button>
+    <button type="button" class="dock-icon" id="helpButton" aria-label="Bantuan" title="Bantuan">?</button>
+  </nav>
+  <button type="button" class="tools-toggle" id="toolsToggle" hidden>☰ Alat</button>
+  <div class="laser-dot" id="laserDot" hidden></div>
+</div>
+
+<div class="modal-backdrop" id="slidesModal" hidden role="dialog" aria-modal="true" aria-labelledby="slidesTitle">
+ <section class="dialog thumbnails-dialog"><header class="dialog-header"><div><span class="eyebrow">DAFTAR MATERI</span><h2 id="slidesTitle">Pilih slide</h2></div><button class="close-dialog" type="button" data-close aria-label="Tutup daftar slide">✕</button></header><div class="thumb-grid" id="thumbGrid"></div></section>
+</div>
+
+<div class="modal-backdrop" id="quizModal" hidden role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+ <section class="dialog quiz-dialog">
+   <header class="dialog-header"><div><span class="eyebrow">KUIS DI DALAM SLIDE</span><h2 id="quizTitle">Uji pemahaman</h2></div><button class="close-dialog" type="button" data-close aria-label="Tutup kuis">✕</button></header>
+   <div class="quiz-content"><div class="quiz-meta"><span id="quizProgress">SOAL 1 / 2</span><span id="quizType">PILIHAN GANDA</span></div><div class="progress-bar"><i id="quizProgressFill"></i></div><h3 id="quizQuestion"></h3><p id="quizInstruction" class="quiz-instruction"></p><div class="answer-options" id="quizOptions"></div><div class="feedback" id="quizFeedback" hidden></div></div>
+   <footer class="dialog-footer"><button type="button" class="secondary-btn" id="quizPrevious">‹ Sebelumnya</button><button type="button" class="primary-btn" id="quizCheck">Periksa jawaban</button><button type="button" class="primary-btn" id="quizNext" hidden>Soal berikutnya ›</button></footer>
+ </section>
+</div>
+
+<div class="modal-backdrop" id="resultsModal" hidden role="dialog" aria-modal="true" aria-labelledby="resultsTitle">
+ <section class="dialog results-dialog"><header class="dialog-header"><div><span class="eyebrow">PENILAIAN FORMATIF</span><h2 id="resultsTitle">Rekap Kuis Usaha dan Energi</h2></div><button class="close-dialog" type="button" data-close aria-label="Tutup rekap">✕</button></header><div id="resultsContent" class="results-content"></div><footer class="dialog-footer"><button type="button" class="secondary-btn" id="resetAnswers">Hapus hasil</button><button type="button" class="primary-btn" id="exportCSV">Unduh CSV</button></footer></section>
+</div>
+
+<div class="modal-backdrop" id="helpModal" hidden role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+ <section class="dialog help-dialog"><header class="dialog-header"><div><span class="eyebrow">PANDUAN PID</span><h2 id="helpTitle">Cara menggunakan Presentasi Kelas</h2></div><button class="close-dialog" type="button" data-close aria-label="Tutup bantuan">✕</button></header><div class="help-content"><p><b>Mode Presentasi Kelas langsung aktif.</b> Geser satu jari ke kiri atau kanan untuk berpindah slide. Ketuk <b>Kuis</b> untuk membuka latihan pada slide tanpa meninggalkan presentasi.</p><div class="help-list"><div><strong>☝ Geser satu jari</strong><span>Slide berikutnya atau sebelumnya.</span></div><div><strong>✌ Cubit dua jari</strong><span>Perbesar atau perkecil; geser untuk memindahkan slide saat diperbesar.</span></div><div><strong>✎ Pena</strong><span>Tulis di atas slide. Geseran tidak mengubah slide ketika pena aktif.</span></div><div><strong>◎ Laser</strong><span>Tunjuk bagian slide tanpa membuat coretan permanen.</span></div><div><strong>▤ Hasil</strong><span>Lihat nilai sementara 12 soal, kemudian ekspor sebagai CSV.</span></div><div><strong>⛶ Layar penuh</strong><span>Aktifkan melalui tombol. Browser memerlukan sentuhan pengguna.</span></div></div><p class="help-note">Pintasan: ←/→ berpindah slide, K membuka kuis, F untuk layar penuh, Esc menutup dialog, dan T memunculkan bilah alat. Hasil kuis disimpan hanya pada browser perangkat yang digunakan.</p></div><footer class="dialog-footer"><button type="button" class="primary-btn" data-close>Mengerti</button></footer></section>
+</div>
+<script src="app.js" defer></script>
+</body>
+</html>
