@@ -1,6 +1,7 @@
 MODE PRESENTASI KELAS PID - USAHA DAN ENERGI
 ============================================
 
+Presentasi Interaktif Usaha dan Energi - Versi 1.1
 Versi ringkas dari pemutar Usaha dan Energi.
 
 ISI
